@@ -71,14 +71,14 @@
 
         return (op1 > op2 ? op2 : op1);
     }
-    
+
 ///////////////////////////////////////////////////////////////////////////
         public static int KnapSack(Item[] items, int w) {
         return KnapSack(items, w, 0);
     }
 
     private static int KnapSack(Item[] items, int w, int i) {
-        
+
         ///pull out item if overloaded.
         if (w < 0) {
             return -(items[i - 1].get_value());
@@ -86,7 +86,7 @@
         if (w == 0 || i == items.length) {
             return 0;
         }
-        
+
         //op1 first used
         int op1 = items[i].get_value() + KnapSack(items, w - items[i].get_weight(), i + 1);
 
@@ -97,3 +97,79 @@
     }
 
 ///////////////////////////////////////////////////////////////////////////
+  
+/**
+ *a method that calculates the longest "slope" in 2d matrix, meaning given a num (natural number)
+ *  it check if there is -num of the current cell in the nearby cell(up/down/right/left) and continues if it found again.
+ * in the end it returns the number of cells of longest found slope in the matrix.
+ *
+ * @param mat the 2d matrix
+ * @param num the num that represents the difference were looking for.
+ * @param i i index in matrix
+ * @param j j index in matrix
+ * @return the number of cells of longest slope found.
+ */
+private static int longestSlope(int[][] mat, int num, int i, int j) {
+
+    int nextI = i;
+    int nextJ = j+1;
+    int currentMax =1;
+
+    if (j == mat[0].length){
+        nextI = i+1;
+        nextJ = 0;
+    }
+
+    if (i == mat.length){
+        return 0;
+    }
+
+
+    if (j !=mat[0].length) {
+        currentMax = slopeCalc(mat, num, i, j);
+    }
+    int nextMax = longestSlope(mat,num,nextI,nextJ);
+    return myMax(currentMax,nextMax);
+}
+
+//the checking algorithm.
+private static int slopeCalc(int[][] mat, int num, int i, int j) {
+    int max = 1;
+
+    //check left
+    if (j != 0) {
+        if (mat[i][j] - mat[i][j - 1] == num) {
+            max = myMax(max,1+ slopeCalc(mat, num, i, j - 1));
+        }
+    }
+
+    //check right
+    if (j != mat[0].length-1) {
+        if (mat[i][j] - mat[i][j + 1] == num) {
+            max = myMax(max,1+ slopeCalc(mat, num, i, j + 1));
+        }
+    }
+    //check up
+    if (i != 0) {
+        if (mat[i][j] - mat[i - 1][j] == num) {
+            max = myMax(max,1+ slopeCalc(mat, num, i - 1, j));
+        }
+    }
+
+    //check down
+    if (i != mat.length-1) {
+        if (mat[i][j] - mat[i + 1][j] == num) {
+            max = myMax(max,1+ slopeCalc(mat, num, i + 1, j));
+        }
+    }
+
+    return max;
+}
+        // MathMax not allowed in project
+private static int myMax(int a, int b) {
+    if (a < b) {
+        return b;
+    } else {
+        return a;
+    }
+}
