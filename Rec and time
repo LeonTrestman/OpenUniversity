@@ -1,1 +1,99 @@
-testing
+///////////////////////////////////////////////////////////////////////////
+    public static int cntTrueReg(boolean[][] mat) {
+        return cntTrueReg(mat, 0, 0);
+    }
+
+    private static int cntTrueReg(boolean[][] mat, int i, int j) {
+        if (j == mat[0].length) {
+            j = 0;
+            i = i + 1;
+        }
+
+        if (i == mat.length)
+            return 0;
+
+        if (mat[i][j] == false) {
+            return 0 + cntTrueReg(mat, i, j + 1);
+        } else {
+
+            detected(mat, i, j);
+            return 1 + cntTrueReg(mat, i, j + 1);
+        }
+    }
+
+    private static void detected(boolean[][] mat, int i, int j) {
+        if (mat[i][j] == true) {
+            mat[i][j] = false;
+
+            if (j != mat[0].length - 1) {
+                detected(mat, i, j + 1);
+            }
+            if (j != 0) {
+                detected(mat, i, j - 1);
+            }
+            if (i != mat.length - 1) {
+                detected(mat, i + 1, j);
+            }
+            if (i != 0) {
+                detected(mat, i - 1, j);
+            }
+
+        }
+    }
+///////////////////////////////////////////////////////////////////////////
+
+
+    public static int cheapestRoute(int[] stations) {
+        return cheapestRoute(stations, 0);
+
+    }
+
+    private static int cheapestRoute(int[] stations, int i) {
+        int op2;
+        if (i >= stations.length)
+            return 0;
+
+        if (i == stations.length - 1) {
+            return stations[i];
+        }
+
+        //op1  jumping 1
+        int op1 = stations[i] + cheapestRoute(stations, i + 1);
+
+        //op 2 jumping two
+        if (i == stations.length - 2) {
+            op2 = stations[i] + cheapestRoute(stations, i + 1);
+
+        } else {
+
+            op2 = stations[i] + cheapestRoute(stations, i + 2);
+        }
+
+        return (op1 > op2 ? op2 : op1);
+    }
+    
+///////////////////////////////////////////////////////////////////////////
+        public static int KnapSack(Item[] items, int w) {
+        return KnapSack(items, w, 0);
+    }
+
+    private static int KnapSack(Item[] items, int w, int i) {
+        
+        ///pull out item if overloaded.
+        if (w < 0) {
+            return -(items[i - 1].get_value());
+        }
+        if (w == 0 || i == items.length) {
+            return 0;
+        }
+        
+        //op1 first used
+        int op1 = items[i].get_value() + KnapSack(items, w - items[i].get_weight(), i + 1);
+
+        //op2 first isnt used
+        int op2 = KnapSack(items, w, i + 1);
+        int max = Math.max(op1, op2);
+        return max;
+    }
+
+///////////////////////////////////////////////////////////////////////////
