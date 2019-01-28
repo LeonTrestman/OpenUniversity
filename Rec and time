@@ -176,14 +176,6 @@ private static int myMax(int a, int b) {
 
 ///////////////////////////////////////////////////////////////////////////
 
-public static void main(String[] args) {
-    String str1 = "sunday";
-    String str2 = "saturday";
-    System.out.println(edit(str1, str2));
-
-}
-
-
 public static int edit(String str1, String str2) {
 
     return edit(str1, str2, 0, 0);
@@ -210,3 +202,28 @@ private static int edit(String str1, String str2, int i1, int i2) {
     //returning the minimum
     return (op1 > op2 ? op2 : op1);
 }
+
+///////////////////////////////////////////////////////////////////////////
+                ///2016 87 6a
+public static int count (int sum){
+
+   return  count(sum,1);
+ }
+
+ private static int count (int sum , int input){
+
+     //end
+     if ( sum == 0) {
+         return 1;
+     }
+
+     if (sum < 0 || input>sum )
+         return 0;
+
+     // op 1 using the the input
+     // op 2 not using the input
+     return count(sum-input , input+1) + count(sum ,input +1);
+
+ }
+
+///////////////////////////////////////////////////////////////////////////
