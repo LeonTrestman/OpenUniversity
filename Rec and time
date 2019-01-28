@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-
+                    //2017 b4 93
     public static int cntTrueReg(boolean[][] mat) {
         return cntTrueReg(mat, 0, 0);
     }
@@ -42,7 +42,7 @@
         }
     }
 ///////////////////////////////////////////////////////////////////////////
-
+                  // 2018 91 a
     public static int cheapestRoute(int[] stations) {
         return cheapestRoute(stations, 0);
 
@@ -97,7 +97,7 @@
     }
 
 ///////////////////////////////////////////////////////////////////////////
-
+                // maman 
 /**
  *a method that calculates the longest "slope" in 2d matrix, meaning given a num (natural number)
  *  it check if there is -num of the current cell in the nearby cell(up/down/right/left) and continues if it found again.
