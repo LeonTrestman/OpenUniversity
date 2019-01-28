@@ -1,4 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
+
     public static int cntTrueReg(boolean[][] mat) {
         return cntTrueReg(mat, 0, 0);
     }
@@ -41,7 +42,6 @@
         }
     }
 ///////////////////////////////////////////////////////////////////////////
-
 
     public static int cheapestRoute(int[] stations) {
         return cheapestRoute(stations, 0);
@@ -97,7 +97,7 @@
     }
 
 ///////////////////////////////////////////////////////////////////////////
-  
+
 /**
  *a method that calculates the longest "slope" in 2d matrix, meaning given a num (natural number)
  *  it check if there is -num of the current cell in the nearby cell(up/down/right/left) and continues if it found again.
@@ -172,4 +172,41 @@ private static int myMax(int a, int b) {
     } else {
         return a;
     }
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+public static void main(String[] args) {
+    String str1 = "sunday";
+    String str2 = "saturday";
+    System.out.println(edit(str1, str2));
+
+}
+
+
+public static int edit(String str1, String str2) {
+
+    return edit(str1, str2, 0, 0);
+}
+
+private static int edit(String str1, String str2, int i1, int i2) {
+
+    int op1, op2;
+    //reaching the end of the strings;
+    if (str1.length() == i1 || str2.length() == i2) {
+        return Math.abs((str1.length() - i1) - (str2.length() - i2));
+    }
+
+    if (str1.charAt(i1) == str2.charAt(i2)) {
+        return edit(str1, str2, i1 + 1, i2 + 1);
+    } else {
+
+        //op1 change in the first string
+        op1 = 1 + edit(str1, str2, i1 + 1, i2);
+
+        //op2 change in the second string
+        op2 = 1 + edit(str1, str2, i1, i2 + 1);
+    }
+    //returning the minimum
+    return (op1 > op2 ? op2 : op1);
 }
