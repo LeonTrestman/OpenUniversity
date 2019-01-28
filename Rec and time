@@ -1,3 +1,7 @@
+
+  Solutions for rec questions from finals of intro to cs and java openU
+  Written by Leon Trestman
+
 ///////////////////////////////////////////////////////////////////////////
                     //2017 b4 93
     public static int cntTrueReg(boolean[][] mat) {
@@ -97,7 +101,7 @@
     }
 
 ///////////////////////////////////////////////////////////////////////////
-                // maman 
+                // maman
 /**
  *a method that calculates the longest "slope" in 2d matrix, meaning given a num (natural number)
  *  it check if there is -num of the current cell in the nearby cell(up/down/right/left) and continues if it found again.
