@@ -261,3 +261,23 @@ public static int oneFiveSeven(int n) {
     return min;
 }
 ///////////////////////////////////////////////////////////////////////////
+                    // 2016a 87 6a
+public static int minDiff(int[] arr) {
+    return minDiff(arr, 0, 0, 0);
+}
+
+private static int minDiff(int[] arr, int i, int sum1, int sum2) {
+
+    int op1, op2;
+    //end
+    if (i == arr.length) {
+        return Math.abs(sum1 - sum2);
+    }
+
+    //op 1 put the arr[i] in the first "array"
+    //op 2 put the arr[i] in the second "array"
+    op1 = minDiff(arr, i + 1, sum1 + arr[i], sum2);
+    op2 = minDiff(arr, i + 1, sum1, sum2 + arr[i]);
+
+    return Math.min(op1, op2);
+}
