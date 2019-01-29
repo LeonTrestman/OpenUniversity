@@ -1,0 +1,39 @@
+     Solutions for time and space complexity questions from finals of intro to cs and java openU
+     Written by Leon Trestman 
+    
+///////////////////////////////////////////////////////////////////////////
+            //2016 2a 83
+            //Variation of binary search
+    public static boolean findX(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left != right) {
+
+            int mid = (left + right) / 2;
+
+            //check for edge cases ,and not getting out of bound
+            if (mid - 1 < 0 && arr[mid] + arr[mid + 1] != target)
+                return false;
+
+            if (mid + 1 > arr.length - 1 && arr[mid] + arr[mid - 1] != target)
+                return false;
+
+            //check for sum of two nearby without going out of bounds.
+            if (mid - 1 > 0 && arr[mid] + arr[mid - 1] == target) {
+                return true;
+            }
+            if (mid + 1 < arr.length && arr[mid] + arr[mid + 1] == target) {
+                return true;
+            }
+
+            if (arr[mid] + arr[mid - 1] > target) {
+                right = mid - 1;
+
+            } else {
+                left = mid + 1;
+            }
+
+        }
+        return false;
+    }
