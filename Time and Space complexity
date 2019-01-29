@@ -38,3 +38,32 @@
         return false;
     }
 ///////////////////////////////////////////////////////////////////////////
+              //2017b 85 4a
+              
+public static void printClosest(int[]a , int[]b ,int x){
+
+    int left = 0;
+    int right = b.length - 1;
+    int sum = a[left] + b[right];
+    int closest = Math.abs(x - sum);
+    int num1 = 0;
+    int num2 = 0;
+
+    while ( left < a.length-1 && right > -1){
+        sum = a[left] + b[right];
+
+        if(Math.abs(x-sum) < closest){
+            closest =Math.abs(sum-x);
+            num1 = a[left];
+            num2 = b[right];
+        }
+
+        if (sum < x){
+            left++;
+        }else{
+            right--;
+        }
+    }
+    System.out.println(num1 + " and " + num2);
+}
+///////////////////////////////////////////////////////////////////////////
