@@ -281,3 +281,5 @@ private static int minDiff(int[] arr, int i, int sum1, int sum2) {
 
     return Math.min(op1, op2);
 }
+///////////////////////////////////////////////////////////////////////////
+            //this is a test
