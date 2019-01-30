@@ -67,3 +67,30 @@ public static void printClosest(int[]a , int[]b ,int x){
     System.out.println(num1 + " and " + num2);
 }
 ///////////////////////////////////////////////////////////////////////////
+                //2017 5a 86
+    //o(n2) time complexity , one loop that goes through "all" the array and another loop
+    //that is a variation of the swing algorithm.
+
+public static int countTriplets (int [] arr, int num){
+
+    int count=0;
+
+    //left
+    for (int left = 0 ; left != arr.length-3 ; left++){
+
+        int mid = left +1;
+        int right = arr.length-1;
+
+        while (mid <right){
+
+            if ( arr[left]+arr[mid]+arr[right] < num ) {
+                right--;
+            }else {
+                count += right- mid; //count all the triplets in between
+                mid++;
+            }
+        }
+        
+    }
+    return count;
+}
