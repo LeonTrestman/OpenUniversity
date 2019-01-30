@@ -95,3 +95,21 @@ public static int countTriplets (int [] arr, int num){
     return count;
 }
 ///////////////////////////////////////////////////////////////////////////
+                //2017 90 1b
+                // o(n) time complexity,one loop.
+public static int findSmallest(int[] arr){
+    // if it doesnt start with the lowest positive number
+    if (arr[1] != 1)
+        return 1;
+
+    int sum=1;
+
+    for (int i = 0 ; i<arr.length ;i++){
+
+        if (sum < arr[i])
+            return sum +1;
+        sum +=arr[i];
+    }
+    return sum;
+}
+///////////////////////////////////////////////////////////////////////////
