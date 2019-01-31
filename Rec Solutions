@@ -342,4 +342,28 @@ private static boolean isValid(char[][] minChess, int i, int j) {
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////
+                  // 2015b 5a 86
+public static void printAllSum (int[]a , int sum){
+    String ans ="";
+    printAllSum(a,sum,0,ans);
+
+}
+private static void printAllSum (int[]a , int sum , int i,String ans){
+
+    if(sum == 0 &&  i == a.length){
+        System.out.println(ans);
+        return;
+    }
+    if (sum <0 || i == a.length ) {
+        return;
+    }
+
+    //op 1 the number is part of sum
+    //op 2 the number isn't part of the sum
+    String ans1 = ans + '1' ;
+    String ans2 = ans + "0";
+    printAllSum(a,sum-a[i],i+1,ans1);
+    printAllSum(a,sum,i+1,ans2);
+}
+///////////////////////////////////////////////////////////////////////////
 
