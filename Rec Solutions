@@ -282,3 +282,62 @@ private static int minDiff(int[] arr, int i, int sum1, int sum2) {
     return Math.min(op1, op2);
 }
 ///////////////////////////////////////////////////////////////////////////
+                //2016a 91 2b
+public static int minPath(char[][] minChess, int i, int j) {
+    //check if valid.
+    //if not return a huge number so it won't count with the min and wont effect a sensible sized board;
+    if (!(isValid(minChess, i, j)))
+        return 999999;
+
+    //end
+    if (minChess[i][j] == 'K') {
+        return 0;
+    }
+    
+    //marks the place (so it wont go back to it)
+    // H for Horse (Knight), because K is for King
+    minChess[i][j] = 'H';
+
+    //the knight has 8 options to move
+    int op1 = 1 + minPath(minChess, i - 2, j + 1);
+    int op2 = 1 + minPath(minChess, i - 2, j - 1);
+    int op3 = 1 + minPath(minChess, i - 1, j + 2);
+    int op4 = 1 + minPath(minChess, i - 1, j - 2);
+    int op5 = 1 + minPath(minChess, i + 1, j + 2);
+    int op6 = 1 + minPath(minChess, i + 1, j - 2);
+    int op7 = 1 + minPath(minChess, i + 2, j + 1);
+    int op8 = 1 + minPath(minChess, i + 2, j - 1);
+
+    //revert the changes for backtracking
+    minChess[i][j] = '0';
+
+    //min calc without Math.min
+    int min = op1;
+    if (min > op2 ) min = op2;
+    if (min > op3 ) min = op3;
+    if (min > op4 ) min = op4;
+    if (min > op5 ) min = op5;
+    if (min > op6 ) min = op6;
+    if (min > op7 ) min = op7;
+    if (min > op8 ) min = op8;
+
+    //if no way found
+    if (min >= 999999) {
+        min = -1;
+    }
+    return min;
+}
+
+private static boolean isValid(char[][] minChess, int i, int j) {
+        
+    if (j >= minChess[0].length || j <0 ) {
+        return false;
+    }
+    if (i >= minChess.length || i < 0 ) {
+        return false;
+    }
+    if (minChess[i][j] == 'H') {
+        return false;
+    }
+    return true;
+}
