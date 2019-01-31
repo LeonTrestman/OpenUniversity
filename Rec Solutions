@@ -342,4 +342,4 @@ private static boolean isValid(char[][] minChess, int i, int j) {
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////
-test
+
