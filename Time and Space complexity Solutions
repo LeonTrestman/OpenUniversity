@@ -113,3 +113,23 @@ public static int findSmallest(int[] arr){
     return sum;
 }
 ///////////////////////////////////////////////////////////////////////////
+              //2015b a5 86 
+public static void printPairs(int[] a, int k) {
+
+    int left = 0;
+    int right = 1;
+
+    while (right < a.length) {
+
+        if (k == a[right] - a[left]) {
+            System.out.println("Pair Found: " + a[left] + "," + a[right]);
+            left++;
+        }
+
+         if (a[right] - a[left] < k) {
+            right++;
+        } else {
+            left++;
+        }
+    }
+}
