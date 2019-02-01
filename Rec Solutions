@@ -383,7 +383,7 @@ public static int lcs (String s , String t){
      return  Math.max(lcs(s,t,index1+1,index2),lcs(s,t,index1,index2+1));
   }
   ///////////////////////////////////////////////////////////////////////////
-                //2015 91 2נ
+                //2015 91 2bנ
   public static int  makeSum (int[] lengths ,  int k , int num){
 
     return  makeSum(lengths,k,num,0);
@@ -400,4 +400,3 @@ public static int lcs (String s , String t){
           return makeSum(lengths,k-lengths[i],num-1,i) + makeSum(lengths,k,num,i+1);
   }
   ///////////////////////////////////////////////////////////////////////////
-  
