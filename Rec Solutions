@@ -366,4 +366,21 @@ private static void printAllSum (int[]a , int sum , int i,String ans){
     printAllSum(a,sum,i+1,ans2);
 }
 ///////////////////////////////////////////////////////////////////////////
+            //2015b 83
+public static int lcs (String s , String t){
+    return lcs(s,t,0,0);
+    
+ }
+  private static int lcs (String s , String t, int index1,int index2){
 
+      if (index1 == s.length() || index2 == t.length() ) {
+          return 0;
+      }
+     if(s.charAt(index1) == t.charAt( index2) )
+         return 1 + lcs(s,t,index1+1,index2+1);
+     
+     //2 op, going either from string one or string 2.
+     return  Math.max(lcs(s,t,index1+1,index2),lcs(s,t,index1,index2+1));
+  }
+  ///////////////////////////////////////////////////////////////////////////
+  
