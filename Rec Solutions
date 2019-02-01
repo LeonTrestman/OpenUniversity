@@ -383,4 +383,19 @@ public static int lcs (String s , String t){
      return  Math.max(lcs(s,t,index1+1,index2),lcs(s,t,index1,index2+1));
   }
   ///////////////////////////////////////////////////////////////////////////
-  
+                //2015 91 2נ
+  public static int  makeSum (int[] lengths ,  int k , int num){
+
+    return  makeSum(lengths,k,num,0);
+  }
+  private static int  makeSum (int[] lengths ,  int k , int num, int i){
+
+      if(num >= 0 && k == 0)
+          return 1;
+
+      if( num < 0 || k <= 0 || i > lengths.length-1)
+          return 0;
+
+      //2 op index in array participate or doesn't
+          return makeSum(lengths,k-lengths[i],num-1,i) + makeSum(lengths,k,num,i+1);
+  }
