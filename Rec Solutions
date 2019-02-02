@@ -382,7 +382,7 @@ public static int lcs (String s , String t){
      //2 op, going either from string one or string 2.
      return  Math.max(lcs(s,t,index1+1,index2),lcs(s,t,index1,index2+1));
   }
-  ///////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////////////////////////////////////////////////
                 //2015 91 2bנ
   public static int  makeSum (int[] lengths ,  int k , int num){
 
@@ -399,4 +399,23 @@ public static int lcs (String s , String t){
       //2 op index in array participate or doesn't
           return makeSum(lengths,k-lengths[i],num-1,i) + makeSum(lengths,k,num,i+1);
   }
-  ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+                    // 2018 a 2a
+  public static int howManySorted(int n, int max) {
+
+    return howManySorted(n, max, 1);
+}
+
+private static int howManySorted(int n, int max, int input) {
+
+    if (n < 0 || input > max)
+        return 0;
+    if (n == 0) {
+        return 1;
+    }
+    //2 op:
+    //one is using the input
+    //second is skipping the input
+    return howManySorted(n - 1, max, input) + howManySorted(n, max, input + 1);
+}
+///////////////////////////////////////////////////////////////////////////
