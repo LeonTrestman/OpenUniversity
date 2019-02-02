@@ -419,3 +419,27 @@ private static int howManySorted(int n, int max, int input) {
     return howManySorted(n - 1, max, input) + howManySorted(n, max, input + 1);
 }
 ///////////////////////////////////////////////////////////////////////////
+            // 2015 94 5b
+public static int longOrdNum (String s){
+
+    return longOrdNum(s,0,0,0,0);
+}
+
+private static int longOrdNum (String s,int index,int prev, int max ,int sum){
+
+    if (index == s.length())
+        return max;
+
+    if(s.charAt(index) > '9' || s.charAt(index) <= prev) {
+            sum = 0;
+    }
+
+    if(s.charAt(index) < '9' && s.charAt(index) >= prev) {
+        sum++;
+    }
+        if(sum>max) {
+            max = sum;
+        }
+    return longOrdNum(s,index+1,s.charAt(index),max,sum);
+}
+///////////////////////////////////////////////////////////////////////////
