@@ -159,7 +159,7 @@ public static boolean what(int[] a, int sum) {
     return false;
 }
 ///////////////////////////////////////////////////////////////////////////
-            // 2015b 5b 94
+            //2015b 5b 94 
 public static int smallestSub( int [] a , int k) {
     int left = 0;
     int right = 0;
@@ -168,8 +168,8 @@ public static int smallestSub( int [] a , int k) {
     int sum = 0;
 
     while (left < a.length ) {
-        
-        if (sum >= k) {
+
+        if (sum > k) {
             if (min > count) {
                 min = count;
             }
@@ -178,7 +178,7 @@ public static int smallestSub( int [] a , int k) {
             left++;
         }
 
-        if (sum < k ) {
+        if (sum <= k ) {
             if (right<a.length) {
                 sum += a[right];
                 count++;
