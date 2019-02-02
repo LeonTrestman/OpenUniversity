@@ -134,3 +134,28 @@ public static void printPairs(int[] a, int k) {
     }
 }
 ///////////////////////////////////////////////////////////////////////////
+                 // 2018 a 2a
+public static boolean what(int[] a, int sum) {
+    int left = 0;
+    int right = 0;
+    int sum_temp = a[0];
+    while (left < a.length) {
+        if (sum_temp == sum) {
+            return true;
+        } else {
+            if (sum_temp < sum) {
+                if (right < a.length - 1) {
+                    right++;
+                    sum_temp += a[right];
+                } else {
+                    return false;
+                }
+            } else {
+                sum_temp -= a[left];
+                left++;
+            }
+        }
+    }
+    return false;
+}
+///////////////////////////////////////////////////////////////////////////
