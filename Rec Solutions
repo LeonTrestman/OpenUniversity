@@ -443,4 +443,28 @@ private static int longOrdNum (String s,int index,int prev, int max ,int sum){
     return longOrdNum(s,index+1,s.charAt(index),max,sum);
 }
 ///////////////////////////////////////////////////////////////////////////
+            // 2015 a4 85
+public static int countRopes (int[][] mat){
+    return countRopes(mat,0,1,Integer.MAX_VALUE);
+    }
+
+    private static int countRopes (int[][] mat,int i ,int j , int prev){
+
+        if (j == mat[0].length || j<0 || i == mat.length|| mat[i][j] >= prev)
+            return  0;
+
+        if (i == mat.length -1 && mat[i][j] < prev)
+            return 1;
+
+        //moving right in the first row
+        if ( i == 0){
+            countRopes(mat,i,j+1,Integer.MAX_VALUE);
+        }
+        //3 op.
+        //going doqn
+        //going down-right
+        //going doqn-left
+        return countRopes(mat,i+1,j,mat[i][j]) + countRopes(mat,i+1 ,j+1,mat[i][j]) + countRopes(mat,i+1 ,j-1,mat[i][j]);
+    }
+///////////////////////////////////////////////////////////////////////////
 
