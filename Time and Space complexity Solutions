@@ -191,4 +191,30 @@ public static int smallestSub( int [] a , int k) {
     return min;
 }
 ///////////////////////////////////////////////////////////////////////////
+                //2017a 6a 87
+public static boolean isPythagorean(int[] arr) {
+
+    for (int a = 0; a != arr.length - 2; a++) {
+        int b = a+1;
+        int c = b +1;
+
+        while  ( c != arr.length) {
+
+            if ((arr[a] * arr[a]) + (arr[b] * arr[b]) == (arr[c] * arr[c])) {
+                return true;
+            }
+
+            if (c < arr.length && (arr[a] * arr[a]) + (arr[b] * arr[b]) > (arr[c] * arr[c])) {
+                c++;
+            }
+            if ( c < arr.length && (arr[a] * arr[a]) + (arr[b] * arr[b]) < (arr[c] * arr[c])) {
+                b++;
+                if (b == c)
+                    c++;
+            }
+        }
+    }
+    return false;
+}
+///////////////////////////////////////////////////////////////////////////
 
