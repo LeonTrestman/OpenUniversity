@@ -401,7 +401,7 @@ public static int lcs (String s , String t){
   }
 ///////////////////////////////////////////////////////////////////////////
                     // 2018 a 2a
-  public static int howManySorted(int n, int max) {
+public static int howManySorted(int n, int max) {
 
     return howManySorted(n, max, 1);
 }
@@ -448,7 +448,7 @@ public static int countRopes (int[][] mat){
     return countRopes(mat,0,1,Integer.MAX_VALUE);
     }
 
-    private static int countRopes (int[][] mat,int i ,int j , int prev){
+private static int countRopes (int[][] mat,int i ,int j , int prev){
 
         if (j == mat[0].length || j<0 || i == mat.length|| mat[i][j] >= prev)
             return  0;
