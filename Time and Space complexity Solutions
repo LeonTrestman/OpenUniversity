@@ -225,4 +225,25 @@ public static boolean what (int n){
 
 }
 ///////////////////////////////////////////////////////////////////////////
+        //2014a 5a
+        //variation on binary search
+
+public static int findMax(int[] arr){
+    int left = 0;
+    int right = arr.length-1;
+
+    while (arr[left] > arr[right] ){
+        int mid = (left + right) /2;
+
+        if (arr[left] > arr[mid]){
+            right = mid;
+        }
+        if (arr[right ] < arr[mid] ){
+            right = mid;
+        }
+
+    }
+    return right;
+}
+///////////////////////////////////////////////////////////////////////////
 
