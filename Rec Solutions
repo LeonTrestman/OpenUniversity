@@ -504,3 +504,35 @@ private static int sameMinus(int[]arr,int index,int input){
 }
 
 ///////////////////////////////////////////////////////////////////////////
+            //2013a 3b
+public static boolean match (int[] a , int [] pattern){
+
+    return match(a,pattern,0,0,0);
+  }
+
+  private static boolean match (int[] a , int [] pattern,int starti ,int i,int j ){
+
+      if (j == pattern.length || pattern.length ==0 )
+          return true;
+
+      if(i == a.length )
+          return false;
+
+      if( singleNum(a,i) && (pattern[j] == 1 || pattern[j] == 0  ) ){
+          return match(a,pattern,starti,i+1,j+1);
+      }
+      if( doubleNum(a,i) && (pattern[j] == 2 || pattern[j] == 0 )  ){
+          return match(a,pattern,starti,i+1,j+1);
+      }
+          return match(a,pattern,starti+1,starti+1,0);
+  }
+
+  private static boolean singleNum(int[] a , int i) {
+      return (-10 < a[i] && a[i] < 10);
+  }
+  private static boolean doubleNum(int[] a , int i) {
+      return ((-100 < a[i] && a[i] <-9  )  ||  ( a[i] > 9 && a[i] < 100));
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  
