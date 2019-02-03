@@ -246,4 +246,36 @@ public static int findMax(int[] arr){
     return right;
 }
 ///////////////////////////////////////////////////////////////////////////
+             //2013b 5a
+             // o(logn) time complexity , a varation on binary search
 
+public static int minAbsSum (int []a){
+    int left = 0;
+     int right = a.length;
+
+     //finds the min number
+     while(left < right || left +1 == right){
+         int middle = (left+right)/2;
+         
+         if (Math.abs(a[left]) > Math.abs(a[middle]) ){
+             left=middle;
+
+         }else {
+             right = middle;
+         }
+     }
+     //checks the lower number nearby within the boundaries
+     if (left-1 >0) {
+         if (Math.abs(a[left]) + Math.abs(a[left + 1]) > Math.abs(a[left]) + Math.abs(a[left - 1])) {
+             left--;
+         } else
+             if (right+1 < a.length)
+             right++;
+     }else
+         if (right+1 < a.length)
+         right++;
+
+ return Math.abs(a[left]) +Math.abs(a[right]);
+}
+
+///////////////////////////////////////////////////////////////////////////
