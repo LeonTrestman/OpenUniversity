@@ -217,4 +217,12 @@ public static boolean isPythagorean(int[] arr) {
     return false;
 }
 ///////////////////////////////////////////////////////////////////////////
+            //2014b 4a
+            //o(1) complexity , check if the number is a perfect square
+public static boolean what (int n){
+    double tmp = Math.sqrt(n);
+   return  (int)tmp * (int)tmp == n;
+
+}
+///////////////////////////////////////////////////////////////////////////
 
