@@ -279,4 +279,20 @@ public static int minAbsSum (int []a){
 }
 
 ///////////////////////////////////////////////////////////////////////////
+              //o(n)
+             //2016a 6a 87
+public static int passingCars(int[] a) {
+    int count = 0;
+    int countEast = 0;
 
+    for (int i = 0; i < a.length; i++) {
+        if (a[i] == 0) {
+            countEast++;
+        }
+        if (a[i] == 1) {
+            count += countEast;
+        }
+    }
+    return count;
+}
+///////////////////////////////////////////////////////////////////////////
