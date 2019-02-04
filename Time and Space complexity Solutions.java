@@ -296,3 +296,19 @@ public static int passingCars(int[] a) {
     return count;
 }
 ///////////////////////////////////////////////////////////////////////////
+        //2015b 83
+        //O(n), one loop
+public static void replace (int [] a){
+    int max = a[a.length-1];
+    int maxTemp= 0;
+    a[a.length-1] = 0;
+
+    for (int i = a.length-2 ; i > -1 ; i--){
+        maxTemp=a[i];
+        a[i] = max;
+        if (maxTemp>max)
+            max= maxTemp;
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+
