@@ -554,7 +554,7 @@ private static int shorestPath(int[][] mat, int i, int j,int prev) {
     //going down
      int min1 =  1 + shorestPath(mat, i + 1, j,mat[i][j] );
     //going up
-      int min2 = 1 + shorestPath(mat, i - 1, j,mat[i][j]);
+     int min2 = 1 + shorestPath(mat, i - 1, j,mat[i][j]);
     //going right
      int min3 = 1 + shorestPath(mat, i, j + 1,mat[i][j]);
     //going left
@@ -568,4 +568,22 @@ private static int shorestPath(int[][] mat, int i, int j,int prev) {
 
     return min;
 }
+///////////////////////////////////////////////////////////////////////////
+                 //2012a 2a
+public static boolean isSumOf (int [] s , int n){
+    return isSumOf(s,n,0);
+  }
+
+  private static boolean isSumOf (int [] s , int n,int i ){
+
+      if(i == s.length || n < 0  ){
+          return false;
+      }
+      if ( n== 0) {
+          return true;
+      }
+      //2 op using the number in the array or not using
+      return (isSumOf(s,n-s[i],i) || isSumOf(s,n,i+1) );
+  }
+
 ///////////////////////////////////////////////////////////////////////////
