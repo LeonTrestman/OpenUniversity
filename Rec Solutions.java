@@ -535,4 +535,37 @@ public static boolean match (int[] a , int [] pattern){
   }
 
   ///////////////////////////////////////////////////////////////////////////
-  
+                //2015a 2a 83
+                //note: it should return 9 and not 10 in the exemple because
+                //it returns the path and not the number of nodes.
+  public static int shorestPath(int[][] mat) {
+    return shorestPath(mat, 0, 0,-1);
+}
+
+private static int shorestPath(int[][] mat, int i, int j,int prev) {
+
+    if (i == mat.length - 1 && j == mat[0].length - 1)
+        return 0;
+
+    //return a huge number that wont effect the min in a sensible sized mat.
+    if( j == -1 || i == mat.length||i == -1|| j == mat[0].length || mat[i][j] <= prev )
+            return 999999;
+
+    //going down
+     int min1 =  1 + shorestPath(mat, i + 1, j,mat[i][j] );
+    //going up
+      int min2 = 1 + shorestPath(mat, i - 1, j,mat[i][j]);
+    //going right
+     int min3 = 1 + shorestPath(mat, i, j + 1,mat[i][j]);
+    //going left
+     int  min4 = 1 + shorestPath(mat, i, j - 1,mat[i][j]);
+
+     //the min calculation
+    int min = min1;
+    if (min > min2 ) min = min2;
+    if (min > min3 ) min = min3;
+    if (min > min4 ) min = min4;
+
+    return min;
+}
+///////////////////////////////////////////////////////////////////////////
