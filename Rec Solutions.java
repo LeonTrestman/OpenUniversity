@@ -587,3 +587,62 @@ public static boolean isSumOf (int [] s , int n){
   }
 
 ///////////////////////////////////////////////////////////////////////////
+             //2014a 5a 2
+
+public static void printPath(int[][] mat) {
+    boolean[][] visited = new boolean[mat.length][mat[0].length];
+
+    printPath(mat,0,0,"",Integer.MIN_VALUE,visited);
+
+}
+//to stop from printing other ways
+static boolean wayfound=false;
+
+private static void printPath(int[][] mat, int i, int j,String path ,int prev ,boolean[][] visited) {
+
+    if(i < 0 || j < 0 || j == mat[0].length || i == mat.length || prev > mat[i][j] || visited[i][j] ||wayfound)
+        return;
+
+    path +=  "(" + i + ", " + j + ") ";
+
+    if (isHill(mat,i,j)){
+        System.out.println(path);
+        wayfound =true;
+        return;
+    }
+    int tmpPrev =mat[i][j];
+    visited[i][j] =true;
+
+    printPath(mat,i+1,j,path,tmpPrev,visited);
+    printPath(mat,i-1,j,path,tmpPrev,visited);
+    printPath(mat,i,j+1,path,tmpPrev,visited);
+    printPath(mat,i+1,j-1,path,tmpPrev,visited);
+
+   visited[i][j] =false;
+}
+private static boolean isHill(int mat[][],int i , int j){
+
+    if(i== 0 || j ==0 || j == mat[0].length-1 || i == mat.length-1 )
+        return false;
+
+    //check up
+    if ( mat[i][j] <= mat[i-1][j])
+        return false;
+
+    //check down
+    if ( mat[i][j] <= mat[i+1][j])
+        return false;
+
+    //check right
+    if ( mat[i][j] <= mat[i][j+1])
+        return false;
+
+    //check left
+    if ( mat[i][j] <= mat[i][j-1])
+        return false;
+
+    return true;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
