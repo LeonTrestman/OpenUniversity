@@ -1,0 +1,135 @@
+//////////////////////////////////////////////////////////////////////////////////
+//2017 87 . Q4
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct fhotographers {
+	int id;
+	int maxdays;
+	int recom;
+	struct fhotographers* next;
+}photographers;
+
+
+
+void Node(photographers** Rhead, int id, int maxdays, int recom) {
+	if (*Rhead == NULL) {
+		photographers* head = (photographers*)malloc(sizeof(photographers));
+		head->id = id;
+		head->maxdays = maxdays;
+		head->recom = recom;
+		head->next = head;
+		*Rhead = head;
+	}
+	else {
+		photographers* temp = (photographers*)malloc(sizeof(photographers));
+		temp->id = id;
+		temp->maxdays = maxdays;
+		temp->recom = recom;
+		photographers* p = *Rhead;
+		while (p->next != *Rhead) {
+			p = p->next;
+		}
+		p->next = temp;
+		temp->next = *Rhead;
+	}
+}
+
+//1 for success o, 0 for not found id
+int search(photographers** head , int id) {
+	//if list is missing
+	if ((*head) == NULL) {
+		printf("List is missing , search and delete cannot be completed\n");
+			return 0;
+	}
+
+
+	photographers* tmpptr = *head;
+	do
+	{
+		if (id == tmpptr->id)
+		{
+			 delete(&tmpptr,head);
+			 return 1;
+		}
+
+		tmpptr = tmpptr->next;
+	} while (tmpptr != *head);
+	if (tmpptr == *head)
+	{
+		printf("the id wasn't found");
+	}
+
+	return 0;
+
+}
+
+int delete (photographers** node, photographers** head) {
+	photographers* tempprev = *node;
+	//edge case only one node return null ptr
+	if ((*node)->next == (*node)) {
+		free((*node));
+		(*head) = NULL;
+		printf("the list has been deleted \n");
+	}
+	else
+	{
+		while (tempprev->next != *node) {
+			tempprev = tempprev->next;
+		}
+		
+		tempprev->next = (*node)->next;
+		if ( *node == *head ) //here
+			*head = (*node)->next;
+		free((*node));
+		
+	}
+	return 1;
+}
+
+//for testing
+printlist(photographers** headptr) {
+	photographers*temp = *headptr;
+	do
+	{
+		if (temp == NULL) {
+			break;
+		}
+		//testing
+		printf("id: %d , Max days: %d ,recom :%d\n", temp->id, temp->maxdays, temp->recom);
+		temp = temp->next;
+	} while (temp != *headptr);
+
+}
+
+int main() {
+	int i = 0;
+	int temp = 1;
+	int id = 0;
+	int maxdays = 0;
+	int recom = 0;
+	photographers * head=0;
+	photographers * tmpptr = 0;
+	while ( id != -1 && maxdays != -1 && recom != -1)// -1 -1 -1 to stop entring
+	{
+
+			printf("Enter Id ,Maxdays, recom \nif you wish to stop enter -1 in all the fields \n");
+			scanf(" %d  %d  %d", &id, &maxdays, &recom);
+			
+			Node(&head, id, maxdays, recom);
+	
+
+			
+	}
+	tmpptr = head;
+	search(&head, -1);
+
+	printlist(&head);
+
+	search(&head,3);
+	printlist(&head);
+}
+
+//////////////////////////////////////////////////////////////////////////////////
