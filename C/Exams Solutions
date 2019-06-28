@@ -133,3 +133,47 @@ int main() {
 }
 
 //////////////////////////////////////////////////////////////////////////////////
+////2017 85 b . Q2
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+#define positiveSum(funcName,type)\
+	type* funcName(type* arr, int Len){\
+		type sum = 0;\
+		int i=0;\
+		type* Newarr = (type*)malloc(sizeof(type)*Len);\
+		for(;i<Len;i++){\
+			sum+=arr[i];\
+			if(sum<0)\
+				Newarr[i]=0;\
+			else\
+				Newarr[i]=sum;\
+		}\
+		return Newarr;\
+	}
+
+positiveSum(intarr, int)
+
+void printArray_(int *a, int Len) {
+	for (int i = 0; i < Len; i++) printf("%d ", a[i]);
+}
+
+
+
+
+int main() {
+	
+	int test[] = {3,5,1,-10,13}; /*len =5*/
+	printArray_(intarr(test, 5),5);
+	
+	
+	
+
+
+	return 666;
+}
+
+
