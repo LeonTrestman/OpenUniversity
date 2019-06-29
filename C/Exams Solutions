@@ -132,6 +132,42 @@ int main() {
 	printlist(&head);
 }
 
+
+
+//////////////////////////////////////////////////////////////////////////////////
+////2017 87 b . Q2
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+#define summery(funcName,type)\
+	type* funcName(type* arr ,int size) {\
+			type* sum = (type*)malloc(sizeof(type));\
+			*sum= 0;\
+			int i = 0; \
+			for(;i<size;i++){\
+			*sum +=  arr[i];\
+			}\
+			return sum;\
+	}
+
+
+
+summery(intarrsum,int)
+
+
+int main() {
+	
+	int test[] = {3,5,1,-10,13}; /*len =5*/
+	int z = *intarrsum(test, 5);
+	printf("The sum is %d ", z);
+	
+
+	return 666;
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 ////2017 85 b . Q2
 #define _CRT_SECURE_NO_WARNINGS
