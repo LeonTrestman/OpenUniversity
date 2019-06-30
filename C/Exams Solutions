@@ -430,3 +430,139 @@ int main() {
 
 	return 1;
 }
+
+//////////////////////////////////////////////////////////////////////////////////
+////2018 87 a . Q4
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+#define RAND_MAX 6
+
+/*menu structure*/
+typedef struct cmd {
+	char* name;
+	void(*func)();
+}Cmd;
+
+typedef struct Node {
+	char* name;
+	struct Node* next;
+}node;
+
+
+//adds one to the begning of the list and then becomes head
+addnode(node** head,char* name) {
+	node * temp = (node*)malloc(sizeof(node));
+	if (!(*head)) {
+		temp->name = name;
+		temp->next = NULL;
+		*head = temp;
+	}
+	else
+	{
+		temp->name = name;
+		temp->next = *head;
+		*head = temp;
+
+	}
+
+
+}
+
+func0(void) {
+	printf("func0 has been activated\n");
+
+}
+
+func1(void) {
+	printf("func1 has been activated\n");
+}
+
+func2(void) {
+	printf("func2 has been activated\n");
+}
+
+func3(void) {
+	printf("func3 has been activated\n");
+}
+func4(void) {
+	printf("func4 has been activated\n");
+}
+func5(void) {
+	printf("func5 has been activated\n");
+}
+func6(void) {
+	printf("func6 has been activated\n");
+}
+
+Cmd menu[] = {
+	{0,func0},
+	{1,func1},
+	{2,func2},
+	{3,func3},
+	{4,func4},
+	{5,func5},
+	{5,func6}
+};
+
+int main() {
+	int temp = 0;
+	int i = 0;
+	node* head = NULL;
+	node* ptrtmp = NULL;
+	int a = 10;// larger than 7 wont work
+	int b = 10;
+	while (i<7) {
+		
+		while(1){
+			a = rand()%10;
+			b = rand() % 10;
+			if( a<7 && b<7)
+				break;
+		}
+
+		menu[a].func();
+		menu[b].func();
+		printf("/////////////////////////////////\n");
+		i++;
+		////////////////////////////////////////////
+		//part b
+
+	}
+	
+	addnode(&head, "facebook");
+	addnode(&head, "instagram");
+	addnode(&head, "snapchat");
+	addnode(&head, "waze");
+	addnode(&head, "google");
+	addnode(&head, "ynet");
+	addnode(&head, "amazon");
+
+	//to get 7
+	while (1) {
+		a = rand() % 10;
+		b = rand() % 10;
+		if (a < 7 && b < 7)
+			break;
+	}
+
+	ptrtmp = head;
+	for (i=0; i < a; i++)
+	{
+		ptrtmp = ptrtmp->next;
+	}
+	printf("%s\n", ptrtmp->name);
+	ptrtmp = head;
+	for (i = 0; i <b; i++)
+	{
+		ptrtmp = ptrtmp->next;
+	}
+	printf("%s\n", ptrtmp->name);
+	printf("/////////////////////////////////\n");
+
+	return 666;
+}
+
