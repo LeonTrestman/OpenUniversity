@@ -1,2 +1,2 @@
-# Leon Testman's open-university assignments.
+# Leon Trestman's open-university assignments.
 
