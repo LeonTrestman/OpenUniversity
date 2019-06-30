@@ -315,3 +315,118 @@ int main() {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////
+////2017 84 a . Q4
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Members{
+	int id;
+	int price;
+	int exp;
+	struct Members* next;
+	struct members* prev;
+}members;
+
+
+//testing proposes
+void printstruct(members* node){
+	//if there is no list 
+	if (!node) {
+		printf("there is no list\n");
+		return;
+	}
+	while (node) {
+
+		printf("id:%d \n", node->id);
+		printf("price:%d \n", node->price);
+		printf("exp:%d \n", node->exp);
+		node = node->prev;
+	}
+}
+
+void addnode(members** head,int id , int price, int exp) {
+	members* temp = (members*)malloc(sizeof(members));
+	if (!(*head)) {
+		temp->id = id;
+		temp->price = price;
+		temp->exp= exp;
+		temp->next = NULL;
+		temp->prev = NULL;
+		*head = temp;
+	}
+	else
+	{
+		//adds to end of list and becomes head 
+		temp->id = id;
+		temp->price = price;
+		temp->exp = exp;
+		temp->prev = *head;
+		temp->next = NULL;
+		(*head)->next = temp;
+		*head = temp;
+	}
+
+}
+
+
+//searching and removing a member by his id
+void seekndistory(members** head,int id) {
+	members* temp = *head;
+	while (temp)
+	{
+		if (temp->id == id) {
+			dellmem(temp,head);
+			return;
+		}
+		temp = temp->prev;
+	}
+	printf("there is no memeber with the id %d on the list\n", id);
+}
+
+dellmem(members* dellnode, members** head) {
+	members* tempprev = dellnode->prev;
+	members* tempnext = dellnode->next;
+	if (tempprev) {
+		tempprev->next = tempnext;
+	}
+	if (tempnext) {
+		tempnext->prev = tempprev;
+	}
+	//edge case delete the head
+	if (dellnode->id == (*head)->id) {
+		*head = tempprev;
+		free(dellnode);
+	}
+	else
+	{
+		free(dellnode);
+	}
+
+}
+
+int main() {
+
+	members* head = NULL;
+	int id = 0;
+	int price =0;
+	int exp = 0;
+
+	while (id != -1) {
+		printf("please enter the following details: id price and exp of the member \nenter -1 if you wish to stop\n");
+		scanf(" %d %d %d", &id, &price, &exp);
+		if (id != -1) {
+			addnode(&head,id,price,exp);
+			
+		}
+	}
+
+	printstruct(head);
+	seekndistory(&head,5);
+	printstruct(head);
+
+
+	return 1;
+}
