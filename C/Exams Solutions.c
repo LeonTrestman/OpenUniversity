@@ -566,3 +566,57 @@ int main() {
 	return 666;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+////2016 90 b . Q2
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define find_3min(func_name,type)\
+	type func_name(type n1,type n2,type n3){\
+		type minNum = 0;\
+		if( n2 > n1 ) {minNum= n1;} else{ minNum= n2; }\
+		if( (minNum) > n3){ minNum = n3;}\
+		return minNum;}
+
+#define arrSize 5
+find_3min(inttype,int)
+find_3min(doubletype, double)
+
+
+void arrmin(int arr1[], int arr2[], int arr3[] ,int arr4[]) {
+	int i = 0;
+	for (; i < arrSize; i++) {
+		arr4[i] = inttype(arr1[i], arr2[i], arr3[i]);
+	}
+
+}
+
+
+int main() {
+	int i = 0;
+	int a = 1;
+	int b = 2;
+	int c = -3;
+
+	double a2 = 12.3;
+	double b2 = -14.4;
+	double c2 = 0;
+
+	int arr1[] = { 2,6,5,99,7 };
+	int arr2[] = { 0,9,8,-3,9 };
+	int arr3[] = { 5,6,1,12,0 };
+	int arr4[] = { 0,0,0,0,0 };
+	
+	arrmin(arr1, arr2, arr3, arr4);
+
+	for (; i < arrSize; i++)
+		printf("%d ", arr4[i]);
+
+	//testing
+	printf("\n%d\n", inttype(a, b, c));
+	printf("%f\n", doubletype(a2, b2, c2));
+
+	return 666;
+}
