@@ -620,3 +620,36 @@ int main() {
 
 	return 666;
 }
+
+//////////////////////////////////////////////////////////////////////////////////
+////2016 87 b . Q2
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+
+#define oddbitcount(func_name,type)\
+		int func_name(type n1){\
+		int countoddbits =0;\
+		int mask = 1;\
+		int newn1 = (int) n1;\
+		newn1 = newn1>>1;\
+		while (newn1 != 0){\
+		if (newn1 & mask ){\
+			countoddbits++;}\
+		newn1 = newn1>>2;\
+		}\
+		return countoddbits;\
+		}
+
+oddbitcount(intcount, int)
+
+int main() {
+
+	printf("%d", intcount(149));
+
+	return 666;
+}
+
