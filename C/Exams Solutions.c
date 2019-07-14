@@ -653,3 +653,155 @@ int main() {
 	return 666;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+////2017 93 a . Q4
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define SIZE 200
+
+typedef struct Bullshit {
+	int id;
+	char type[SIZE];
+	int Price;
+	char artistName[SIZE];
+	struct Bullshit *next;
+}art;
+
+void addnode(art** head, int id, char* type, int price, char* artistname) {
+
+	art* New = (art*)malloc(sizeof(art));
+	art* tail=*head;
+	New->id = id;
+	strcpy(New->type, type);
+	New->Price = price;
+	strcpy(New->artistName, artistname);
+	New->next = NULL;
+	if (!(*head)) {
+		*head = New;
+	}
+	else
+	{
+		while (tail->next) {
+			tail = tail->next;
+		}
+		tail->next = New;
+	}
+
+}
+
+void Merge(art** head1, art** head2) {
+
+	art* tail = NULL;
+	art* temp=NULL;
+	art* newHead=NULL;
+	while (*head1 || *head2) {
+		if (*head1&&*head2) {
+			if ((*head1)->id < (*head2)->id) {
+				temp = *head1;
+				*head1 = (*head1)->next;
+				temp->next = NULL;
+				if (!newHead)
+					newHead = temp;
+				else {
+					tail = newHead;
+					while (tail->next) {
+						tail = tail->next;
+					}
+					tail->next = temp;
+				}
+			}
+			else {
+				temp = *head2;
+				*head2 = (*head2)->next;
+				temp->next = NULL;
+				if (!newHead)
+					newHead = temp;
+				else {
+					tail = newHead;
+					while (tail->next) {
+						tail = tail->next;
+					}
+					tail->next = temp;
+				}
+			}
+		}
+		else if (*head1) {
+			temp = *head1;
+			*head1 = (*head1)->next;
+			temp->next = NULL;
+			if (!newHead)
+				newHead = temp;
+			else {
+				tail = newHead;
+				while (tail->next) {
+					tail = tail->next;
+				}
+				tail->next = temp;
+			}
+		}
+		else {
+			temp = *head2;
+			*head2 = (*head2)->next;
+			temp->next = NULL;
+			if (!newHead)
+				newHead = temp;
+			else {
+				tail = newHead;
+				while (tail->next) {
+					tail = tail->next;
+				}
+				tail->next = temp;
+			}
+		}
+	}
+	*head1 = newHead;
+	*head2 = newHead;
+
+}
+void printa(art* head) {
+	while (head) {
+		printf("|%d\t%s\t%d\t%s| --> ", head->id, head->type, head->Price, head->artistName);
+		head = head->next;
+	}
+	printf("\n");
+}
+
+int main() { 
+
+	int Continue = 1;
+	int tempid;
+	char temptype[SIZE] = { 0 };
+	int tempprice;
+	char tempartistName[SIZE];
+	art* head1 = NULL;
+	art* head2 = NULL;
+
+	while (Continue) {
+		printf("Enter all the #1 BS\n");
+		scanf("%d %s %d %s",&tempid,&temptype,&tempprice,&tempartistName);
+		addnode(&head1, tempid, temptype, tempprice, tempartistName);
+		printf("DU U W T CONT?!?!!? 0 if not\n");
+		scanf("%d", &Continue);
+	}
+	Continue = 1;
+	printf("Your 1nd List:\n");
+	printa(head1);
+	while (Continue) {
+		printf("Enter all the BS #2\n");
+		scanf("%d %s %d %s", &tempid, &temptype, &tempprice, &tempartistName);
+		addnode(&head2, tempid, temptype, tempprice, tempartistName);
+		printf("DU U W T CONT?!?!!? 0 if not\n");
+		scanf("%d", &Continue);
+	}
+	printf("Your 2nd List:\n");
+	printa(head2);
+	printf("Your Merged List is:\n");
+	Merge(&head1, &head2);
+	printa(head1);
+
+	
+	
+	return 666;
+} 
