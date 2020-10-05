@@ -100,3 +100,65 @@ not_poli:
 	j print_array_beg
 
     ############################################################################################################################
+    
+    #2017a 2a
+################# Data segment #####################
+.data
+buf: .ascii "xabvfrqwertyqqqwaquu"
+buf1: .space 20
+msg1: .asciiz "\nThe number of identical char is: "
+################# Code segment #####################
+.text
+.globl main
+main:
+
+	li $t0,0 #initialize buff index
+	li $t9,0 #intialize equal counter
+	
+exam_task:
+
+	beq $t0,19,printbuf1
+	lb $t1,buf($t0)
+	lb $t2,buf+1($t0)
+	sub $t3,$t1,$t2 #sub between index ascii and the next one
+	beqz $t3,addequal #equal zero add =
+	bgtz $t3,addplus # positive means first bigger so add plus
+	#else just add minus
+	add $t3,$zero,'-'
+	sb $t3,buf1($t0)
+	addi $t0,$t0,1# index +1
+	j exam_task
+	
+	
+addequal:
+	add $t3,$zero,'='
+	sb $t3,buf1($t0)
+	addi $t0,$t0,1# index +1
+	addi $t9,$t9,1# equal counter +1
+	j exam_task
+	
+addplus:
+	add $t3,$zero,'+'
+	sb $t3,buf1($t0)
+	addi $t0,$t0,1# index +1
+	j exam_task
+	
+printbuf1:
+	add $t3,$zero,0x0 
+	sb $t3,buf1($t0)#adding null bite to print string
+	la $a0 ,buf1
+	li $v0,4
+	syscall
+	
+printequal:
+	la $a0 ,msg1
+	syscall
+	move $a0 ,$t9
+	li $v0,1
+	syscall
+	
+exit:
+    li      $v0, 10              # terminate program run and
+    syscall                      # Exit 
+    
+    ############################################################################################################################
