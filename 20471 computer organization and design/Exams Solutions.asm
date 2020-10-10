@@ -243,3 +243,75 @@ printAll:
 ############################################################################################################################
        
 
+#2018a a
+.data
+
+space: .asciiz "\n"
+
+.text
+.globl main
+main:
+	#test 1 valid result 3333
+	li $a1,255
+	li $a2,4
+	jal print_base
+	li $v0,4
+	la $a0,space
+	syscall
+	#test 2 valid result 414153
+	li $a1,33333
+	li $a2,6
+	jal print_base
+	li $v0,4
+	la $a0,space
+	syscall
+	#test 3 valid result 324
+	li $a1,89
+	li $a2,5
+	jal print_base
+	li $v0,4
+	la $a0,space
+	syscall
+
+
+
+exit:
+    
+      li $v0,10
+      syscall 
+
+
+###
+#the procedure print_base gets an unsinged word and prints it in different base )(from 2-10) 
+#it's assumed the base is valid
+#parameter $a1 is unsigned number
+#parameter $a2 for is given valid base
+#the solution is using stack for printing in the right order
+###
+
+print_base:
+	move $t0,$a1
+	addi $9,$0,0 #intialize stack counter
+loop:
+	divu $t0,$a2
+	mfhi $t1 # $t1 mod $a2
+	subi $sp,$sp,4
+	sw $t1,0($sp)#push mod
+	addi $t9,$t9,1 #stack counter increment
+	mflo $t0 # $t0/a0
+	bnez $t0,loop
+	
+printStack: 
+
+	beqz $t9,end # can't pop anymore
+	
+	li $v0,1
+	syscall
+	addi $sp,$sp,4
+	subi $t9,$t9,1
+	j printStack
+	
+end:
+	jr $ra
+        
+############################################################################################################################
