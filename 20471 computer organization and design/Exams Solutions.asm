@@ -162,3 +162,84 @@ exit:
     syscall                      # Exit 
     
     ############################################################################################################################
+
+#2018a b
+.data
+
+msg1: .asciiz "\nResult of polindrome : "
+msg2: .asciiz "\nThe Total Sum of the bytes in the word (by 2 compliments method): "
+
+
+.text
+.globl main
+main:
+	
+    li $a1,0x1e8f8f1e
+    li $v0,4
+    la $a0,msg1 #printing msg1 (Result of polindrome)
+    syscall
+    
+    jal byte_palindrome
+    
+    li $a1,0x02468ace
+    li $v0,4
+    la $a0,msg1 #printing msg1 (Result of polindrome)
+    syscall
+    
+    jal byte_palindrome
+    
+exit:
+    
+      li $v0,10
+      syscall 
+
+
+###
+#the procedure check if the byte is palndrome (1 in $v1 if it is otherwise 0 in $v1) and than adds all 
+#the bytes in the word (4) in 2 complement methodthan prints the sum of all the bytes
+#parameter $a1 point to the given word
+#parameter $v1 for polindrome result (1 true 0 false)
+###
+
+byte_palindrome:
+	li $v1,1
+	li $t9,0 #t9, total sum (2 compliment)
+	#firs two bits (end and beg)
+	sll $t1,$a1,24 #(first 8 bits)
+	sra $t1,$t1,24 #sign extend
+	sra $t2,$a1,24 #last 8 bits sign extended
+	add $t9,$t9,$t1
+	add $t9,$t9,$t2
+	sub $t3,$t1,$t2
+	beqz $t3, continue1 #if polindrome skip
+	li $v1,0 
+continue1:
+	rol $t1,$a1,16 #(bits 8-16)
+	sra $t1,$t1,24
+	sll $t2,$a1,8 #(bits 16-24)
+	sra $t2,$t2,24
+	add $t9,$t9,$t1
+	add $t9,$t9,$t2
+	sub $t3,$t1,$t2
+	beqz $t3, printAll #if polindrome skip
+	li $v1,0 
+	
+printAll:
+	#printing palindrome result
+	move $a0,$v1
+	li $v0,1
+	syscall
+	
+	li $v0,4
+        la $a0,msg2 #printing msg2 (Total Sum)
+        syscall
+        
+        move $a0,$t9 #printing the sum
+        li $v0,1
+        syscall
+     
+        jr $ra
+
+############################################################################################################################
+       
+
