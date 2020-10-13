@@ -315,3 +315,58 @@ end:
 	jr $ra
         
 ############################################################################################################################
+
+#2016c b
+.data
+String1: .asciiz  "abertdeasuyzieqaqwjsj!"
+
+.text
+.globl main
+
+main:
+	#test1: valid test result is: abertd##suyzi#q##wj##
+	la $a1,String1
+	jal replace
+
+	#print
+	la $a0, String1
+	li $v0,4 #syscall 4 = print string
+	syscall
+	
+exit:
+	li $v0,10
+	syscall
+	
+	
+#####################################################################
+#Given string adress the procedure replaces each letter that appears more the once with '#' (only keeps original letter
+#the first time it appeared). 
+#its assumed the string contains only valid lower case charchter (a-z),and onlys ends in '!' charcter.
+#$a1 holds the adress of the given String
+
+replace:
+	move $t0,$a1 #initialize the pointer to the string
+	addi $t3,$a1,1  #initialize the pointer to the right byte
+	li $t9,'#'
+	
+	
+nextchar:
+	lb $t1,0($t0)
+	beq $t1,'!',endreplace #exit if on ! char (lastnote)
+	lb $t2,0($t3)#right pointer
+	beq $t2,'!',nextLeft #exit if on ! char (lastnote)
+	bne $t1,$t2,nextRight #if not the same latter
+	sb $t9,($t3)#storing # ! insdead of the right note
+	
+nextRight:
+	addi $t3,$t3,1# increment right byte
+	j nextchar
+	
+nextLeft:
+	addi $t0,$t0,1 #next left pointer
+	addi $t3,$t0,1 #next right pointer (reset +1 from new $t0)
+	j nextchar
+			
+endreplace:
+	jr $ra
+############################################################################################################################
