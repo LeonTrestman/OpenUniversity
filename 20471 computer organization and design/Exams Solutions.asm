@@ -370,3 +370,75 @@ nextLeft:
 endreplace:
 	jr $ra
 ############################################################################################################################
+#2019a b
+.data
+
+array: .word 0x1,0x0ff,0x07,0x0fffff,0x20430066
+
+.text
+.globl main
+main:
+	la $a0,array
+	li $a1,5
+	jal bit_count
+	#test 20 and 4 for index 204 result
+	move $a0,$v0
+	li $v0,1
+	syscall 
+	move $a0,$v1
+      	syscall 
+
+exit:
+    
+      li $v0,10
+      syscall 
+###
+#the procedure bit_count gets an array of word,its scans it for turned bits and returns the the number of the 
+#biggest runred bits in a single word ,and the word index ( if there more than one with the biggest turned bits
+#it will return the first one) 
+#parameter $a0 has the array adress
+#parameter $a1 is the size of the array (assumed natural valid number)
+#$v0 returns the max of tunred bits in single word in the array
+#$v1 returns the index of the word in the array withe the biggest turned bits (if there are two the same it returns
+#the first index
+###
+
+bit_count:
+	
+	li $v0,0 #initialize max turned bit for single word
+	li $v1,0 #initialize index of the max turned bit for single word
+	li $t3,0 # $t3 variable for turned bits in the current word
+	subi $t1,$a1,1 #copy size of array -1 because the array starts at 0
+	mul $t1,$t1,4  # index*4 for words not byte
+	add $t0,$t1,$a0 #pointer to last word of the array
+	move $t1,$a1 #reset index
+	
+loop_bc:
+	beqz $t1,finish #if index isn't 0 the array still has words else finish
+	lw $t2,0($t0)#loading word
+	
+loop_word_bit:
+	beqz $t2,loop_word_end
+	andi $t9,$t2,0x1#and with 1 in binary
+	add $t3,$t3,$t9 #addint he result of ad to the current word turned bits
+	
+	bgt $v0,$t3,skip
+	#if current>= the max update the max
+	add $v1,$zero,$t1
+	add $v0,$zero,$t3
+	
+skip:
+	srl $t2,$t2,1 #move 1 bit to right for checking the next bit
+	j loop_word_bit
+	
+loop_word_end:
+	subi $t1,$t1,1
+	subi $t0,$t0,4
+	li $t3,0 #reset $t3
+	j loop_bc
+	
+finish:
+	jr $ra
+	
+
+############################################################################################################################
