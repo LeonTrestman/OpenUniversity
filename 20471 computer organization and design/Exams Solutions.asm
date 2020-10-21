@@ -542,3 +542,67 @@ finish:
  	jr $ra
 	
 ############################################################################################################################
+#2014a a
+.data
+buf: .space 11
+msgEnter: .asciiz "\nplease enter the String n sized"
+msgERR:	.asciiz " - Char not a letter\n"
+
+.text
+.globl main
+main:
+	
+	la $a0,buf #loading buffer for syscall 8
+	li $a1,4 #N sized String scan,change for getting the desired n size string
+	li $v0,8
+	syscall
+	
+	la $t0,0($a0) # $t0 pointer to the String
+	li $t8,0 # $t8 hold the total sum of valid chars
+	
+loop:	
+	beqz $a1,printsum
+	lb $t1,0($t0)#loading the letter
+	bgt $t1,'z',Err # not char 
+	blt $t1,'A',Err # not char
+	bge $t1,'a',addsmall
+	ble $t1,'Z',addcapital
+	
+Err:
+	move $t9,$a0 #save $a0
+	move $a0,$t1 #to print err char
+	li $v0,11
+	syscall	
+	la $a0,msgERR #print err msg
+	li $v0,4
+	syscall
+	move $a0,$t9 #return original $a0
+	addi $t0,$t0,1
+	subi $a1,$a1,1
+	j loop
+	
+addsmall:
+	subi $t8,$t8,96 #a starts at 97
+	add $t8,$t8,$t1
+	addi $t0,$t0,1
+	subi $a1,$a1,1
+	j loop
+
+addcapital:
+	subi $t8,$t8,64 #A starts at 65
+	add $t8,$t8,$t1
+	addi $t0,$t0,1
+	subi $a1,$a1,1
+	j loop
+
+printsum:
+	
+	move $a0,$t8 #print total sum
+	li $v0,1
+	syscall
+	
+exit:
+    
+      li $v0,10
+      syscall 
+############################################################################################################################
