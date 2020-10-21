@@ -442,3 +442,103 @@ finish:
 	
 
 ############################################################################################################################
+#2015a c
+.data
+
+.text
+.globl main
+main:
+	
+	li $v0,5
+	syscall
+	jal hex_base
+	
+exit:
+    
+      li $v0,10
+      syscall 
+
+
+###
+#the procedure hex_base get an valid integer than it prints it in hecadecimal base.
+#also been request to print with syscall 11 (print char)
+###
+
+hex_base:
+	li $t9,0 #counter for pushing in stack
+	move $t0 ,$v0 #copying the int
+	li $t8,16 #for div use
+	
+start:
+	beqz $t0,print_hex
+	div $t0,$t8
+	mflo $t0 # $t0/a6
+	mfhi $t1 # $t0 mod 16 
+	blt $t1,10,enter_Num
+	beq $t1,10,enter_A	
+	beq $t1,11,enter_B
+	beq $t1,12,enter_C
+	beq $t1,13,enter_D
+	beq $t1,14,enter_E
+	beq $t1,15,enter_F
+	
+	
+enter_Num:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	addi $t1,$t1,48 #num ascii starts from 48
+	sw $t1,0($sp)
+	j start
+enter_A:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	li $t1,'A'
+	sw $t1,0($sp)
+	j start
+enter_B:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	li $t1,'B'
+	sw $t1,0($sp)
+	j start	
+enter_C:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	li $t1,'C'
+	sw $t1,0($sp)
+	j start	
+	
+enter_D:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	li $t1,'D'
+	sw $t1,0($sp)
+	j start	
+	
+enter_E:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	li $t1,'E'
+	sw $t1,0($sp)
+	j start	
+	
+enter_F:
+	addi $t9,$t9,1
+	subi $sp,$sp,4
+	li $t1,'F'
+	sw $t1,0($sp)
+	j start	
+	
+print_hex:
+	beqz $t9,finish #if stack is empty
+	lw $a0 ,0($sp)
+	addi $sp,$sp,4 # pop
+	subi $t9,$t9,1 #-1 stack counter
+	li $v0,11
+	syscall 
+	j print_hex
+
+finish:
+ 	jr $ra
+	
+############################################################################################################################
