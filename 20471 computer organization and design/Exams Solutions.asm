@@ -602,7 +602,7 @@ exit:
       syscall 
 ############################################################################################################################
 
-#2020a 84
+#2019 C
 .data
 Arry: .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 #helping array sized 26 word as required 
 string: .asciiz "ANFRFEWWFREHTGTHWEYETWTTRGETHRFGRGHBGFDHRASGFNG"
@@ -658,4 +658,70 @@ loop:
 	j loop
 
 stopcount:
+	jr $ra
+
+############################################################################################################################
+#2020a 84
+.data
+string: .asciiz "abcdefgh"
+msg: .asciiz ","
+.text
+.globl main
+main:
+	
+	la $a1,string
+	li $a0,8
+	jal switch
+	
+exit:
+    
+      li $v0,10
+      syscall 
+
+###
+#The procedure gets a String than asks a char from user,if the char is found in the stirng it swaps betwen the current 
+#found char and the next one in the String,special case if it's the last char than it swaps with the first char in the
+#string.than it proceedes to print the string backwards (with or without the swap)
+#Parameter $a0 is the number of chars in string
+#parameter $a1 has the adress of the string
+###
+
+switch:
+	li $v0,12 #getting char from user and storing it in $v0
+	syscall
+	move $t9 ,$a0 #copying the num of chars in string
+	move $t0,$a1#copying the adress into t0
+	
+loop:	
+	
+	beqz $t9,printbackwards #end of the String index zero
+	lb $t1,0($t0)#loading the char
+	beq $v0,$t1,swap
+	addi $t0,$t0,1 #next char (byte)
+	subi $t9,$t9,1 #decressing the index
+	j loop
+
+swap:	
+	beq $t9,1,swapSpecial#if last char than do special swap with first char
+	lb $t8,1($t0)#loading the next char
+	sb $t1,1($t0) #storing to the next char the found char
+	sb $t8,0($t0) #storing the next char into the currrent one
+	j printbackwards
+			
+swapSpecial:
+	lb $t8,0($a1)#loading the First byte
+	sb $t8,0($t0) #swapping last and first
+	sb $t1,0($a1)
+	j printbackwards
+	
+printbackwards:
+	subi $t9,$a0,1 #starting fomr N-1 
+	add $t0,$a1,$t9 #starting from the end
+	li $v0,11 
+loop2:	
+	lb $a0,0($t0) #printing char	
+	syscall
+	subi $t0,$t0,1
+	bge $t0,$a1,loop2 #while the adress is larger brach to print next char
+	
 	jr $ra
