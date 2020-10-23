@@ -19,12 +19,10 @@ main:
 	addi $a2,$zero,6 # 6 sized array as given
 	jal exam_procedure
 	
-	
 	#testing array 2
 	la $a1,arr2 #load arr2 adress into @a2
 	addi $a2,$zero,6 # 6 sized array as given
 	jal exam_procedure
-
 		
 exit:
 	li $v0 , 10 #end program
@@ -273,13 +271,10 @@ main:
 	la $a0,space
 	syscall
 
-
-
 exit:
     
       li $v0,10
       syscall 
-
 
 ###
 #the procedure print_base gets an unsinged word and prints it in different base )(from 2-10) 
@@ -606,3 +601,61 @@ exit:
       li $v0,10
       syscall 
 ############################################################################################################################
+
+#2020a 84
+.data
+Arry: .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 #helping array sized 26 word as required 
+string: .asciiz "ANFRFEWWFREHTGTHWEYETWTTRGETHRFGRGHBGFDHRASGFNG"
+msg: .asciiz ","
+.text
+.globl main
+main:
+	
+	la $a0,string
+	la $a1,Arry
+	jal count_char
+	
+	#testing prining the array
+	# valid result is 2,1,0,1,5,6,7,5,0,0,0,0,0,2,0,0,0,6,1,6,0,0,4,0,1,0
+	li $t7,0
+print:	lw $a0,0($a1)
+	li $v0,1 #print num
+	syscall
+	li $v0,4 #print ,
+	la $a0,msg
+	syscall
+	addi $a1,$a1,4#next word
+	addi $t7,$t7,1 # i+1
+	beq $t7,26,exit
+	j print
+	
+exit:
+    
+      li $v0,10
+      syscall 
+
+###
+#The procedure counts the number of chars in a given String,than prints the number of appearance of evrey char in 
+#its alphbetical order
+#Parameter $a0 holds the adress to the String
+#parameter $a1 hold the adress to the helping array
+###
+
+count_char:
+	
+	move $t0,$a0 # pointer to the string
+loop:
+	lb $t3,0($t0)
+	beq $t3,'\0',stopcount #while not end of String \0
+	subi $t3,$t3,65 #A starts at 65
+	mul $t3,$t3,4 #4 for words (not bytes)
+	move $t1,$a1 # pointer to the helping array
+	add $t1,$t1,$t3 #pointing to the helping array char place
+	lw $t2,0($t1)#loading the current counter for char
+	addi $t2,$t2,1 #adding +1 to counter
+	sw $t2,0($t1) #saving it back
+	addi $t0,$t0,1 #next char in original String
+	j loop
+
+stopcount:
+	jr $ra
