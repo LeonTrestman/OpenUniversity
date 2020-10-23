@@ -1,2 +1,2 @@
 # OpenUniversity
-My exam solutions for the course System Programming Laboratory 20465 
+My exam solutions for System Programming Laboratory 20465 course
