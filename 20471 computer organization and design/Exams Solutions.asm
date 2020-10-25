@@ -725,3 +725,56 @@ loop2:
 	bge $t0,$a1,loop2 #while the adress is larger brach to print next char
 	
 	jr $ra
+############################################################################################################################
+
+#2018c
+.data
+matrix: .word -207,7,34,68,5620,403,156,122,135,0,-60,122,-1500,66,18,851
+.text
+
+main:   #test should result in 410 (7+403)
+	li $a1,4
+	li $a2,2
+	la $a0,matrix
+	jal column_sum
+	
+	
+
+
+exit:
+	li $v0 , 10 #end program
+	syscall
+
+###
+#The procedure adds all the odd numbers in a specific column of a given matrix
+#$a0 has the adress of the matrix
+#$a1 is numbers for number of rows in the matrix 
+#$a2 is the number of the column to be summed  (from 1 to N)
+###
+
+column_sum:
+	li $v0,0 #initialize sum
+	subi $t8,$a2,1 #colums are from 0 to n-1 in memory
+	mul $t8,$t8,4 # the starting word 
+	add $t0,$a0,$t8 #adress to the first take word (with the right colum)
+	move $t7,$a1 #counter for loop
+	mul $t8,$a1,4 #for skiiping words , 4 * n sized matrix
+	li $t5,2 #for div use
+add_sum:
+	beqz $t7,finish #n times
+	lw $t1,0($t0)
+	div $t1,$t5 #check for odd
+	mfhi $t3 #odd if modlo 2 isnt zero
+	beq $t3,0,skipadd# if even skip add
+	add $v0,$v0,$t1
+skipadd:
+	add $t0,$t0,$t8
+	subi $t7,$t7,1 
+	j add_sum
+	
+finish:
+	#print test
+	move $a0,$v0
+	li $v0, 1
+	syscall
+	jr $ra
