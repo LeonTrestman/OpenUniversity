@@ -778,3 +778,55 @@ finish:
 	li $v0, 1
 	syscall
 	jr $ra
+############################################################################################################################
+#2019a 82
+.data
+array: .word -1,-2,-3,-4,4,3,2,1
+
+.text
+main:	#test shoudl result in 0
+	#and array in memory should be 4,3,2,1,-1,-2,-3,-4
+	li $a1,8
+	la $a0,array
+	jal swapsum
+exit:
+	li $v0 , 10 #end program
+	syscall
+
+###
+#The procedure swaps the first half of the array with second half while maitining the same order (first int is swapped
+#with N/2+1 the second one with N/2+2 etc...
+#$a0 has the adress of the array
+#$a1 is numbers for number of ints in the array (always even)
+###
+
+swapsum:
+	move $t0,$a0 #copying the adress beggining pointer
+	div $t9,$a1,2 #N/2 calculation
+	mul $t8,$t9,4
+	add $t1,$t8,$t0 # pointer to the beggining of the second half of the array
+	li $v0,0 #initialize the sum of array
+	
+swap2:
+	beqz $t9, finish
+	lw $t2,0($t0) #loads the word in the first half of the array
+	lw $t3,0($t1) #loads the word in the second half of the array
+	#sum part
+	add $v0,$v0,$t2 #adding the first word (int ) to the sum
+	add $v0,$v0,$t3 #adding the secind word (int ) to the sum 
+	#swap part
+	sw $t2,0($t1)
+	sw $t3,0($t0)
+	#incremnt of array position
+	addi $t0,$t0,4
+	addi $t1,$t1,4
+	subi $t9,$t9,1 #decresing the counter
+	j swap2 
+	
+finish:
+	#print sum (for testing)
+	move $a0,$v0
+	li $v0, 1
+	syscall
+	jr $ra
+############################################################################################################################
