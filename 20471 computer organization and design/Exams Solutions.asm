@@ -830,3 +830,72 @@ finish:
 	syscall
 	jr $ra
 ############################################################################################################################
+
+#2019a 82
+.data
+string: .asciiz "aabcabcdeNs43efghijk$"
+
+.text
+main:	
+	#test shoudl result in 7 efghijk - sequence of 7 lowercase alphabeticall letters
+
+
+	la $a0,string
+	jal count_abc
+	
+exit:
+	li $v0 , 10 #end program
+	syscall
+	
+
+###
+#The procedure gets a string than checks and returns the number of the largest sequence of 
+#lowercase alphabeticall letters
+#it is assumed that the string always ends in $
+#$a0 has the adress of string
+###
+
+count_abc:
+	li $v0,0 #initalize the biggest sum of sequence alphabet
+	li $t9,0 #initialize the sum of the current iteration
+	move $t0,$a0 #copying the adress to the string
+	
+	
+loop:
+	lb $t1,0($t0)#loading the byte of the String
+	beq $t1,'$',finish #finish looping at the end of the String '$'
+	bgt $t1,0x7a,resetCount #higher asci than z 
+	blt $t1,0x61,resetCount #lower asci than a 
+	li $t8,1 #flag for finding lower case letter 
+addCount:
+	lb $t2,1($t0) #loading the next byte
+	addi $t1,$t1,1
+	bne $t1,$t2,resetCount #the next letter should be t1+1 in a sequance
+	addi $t9,$t9,1#add to sequence counter
+	addi $t0,$t0,1 #next byte of the adress
+	j loop
+	
+resetCount:
+	#if only lower case letter found should be added
+	beqz $t8,skipfound
+	addi $t9,$t9,1
+skipfound: 
+	bgt $t9,$v0,updateBiggest
+	li $t9,0 #reset the sequence count
+	addi $t0,$t0,1 #next byte of the adress
+	li $t8,0 #reset sequance flag
+	j loop
+	
+updateBiggest:
+	move $v0,$t9 #change V0 to the current t9 largest sequence
+	beq $t1,'$',finish #finish if update on the last 
+	j skipfound #jumpback
+
+finish:
+	bgt $t9,$v0,updateBiggest #if update on the last char 
+	#print sum (for testing)
+	move $a0,$v0
+	li $v0, 1
+	syscall
+	jr $ra
+############################################################################################################################
