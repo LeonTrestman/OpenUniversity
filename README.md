@@ -1,2 +1,2 @@
-# Leon Trestman's open-university assignments.
+# Leon Trestman's open-university assignments and exams solutions
 
