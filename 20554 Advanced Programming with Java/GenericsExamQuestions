@@ -16,7 +16,7 @@ public class Main {
 
     }
 
-    public static <e extends  Comparable> Stack<e> reduceStack(Stack<e> s , e e ){
+    public static <e extends  Comparable<e>> Stack<e> reduceStack(Stack<e> s , e e ){
         Stack<e> tempStack1 = new Stack<>();
         while (!s.empty())
             tempStack1.push(s.pop());
@@ -31,4 +31,5 @@ public class Main {
         return resStack;
     }
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////
