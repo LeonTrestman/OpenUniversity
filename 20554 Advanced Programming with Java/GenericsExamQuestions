@@ -31,5 +31,22 @@ public class Main {
         return resStack;
     }
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////
+    
+/*Question page 81 in Hen's pdf from exam*/    
+public static <e extends  Comparable<e>> Stack<e> reduceStack(Stack<e> s , e e ){
+        Stack<e> tempStack1 = new Stack<>();
+        while (!s.empty())
+            tempStack1.push(s.pop());
+
+        Stack<e> resStack = new Stack<>();
+        while (!tempStack1.empty()){
+            e element = tempStack1.pop();
+            if (element.compareTo(e) <= 0)
+                resStack.push(element);
+        }
+
+        return resStack;
+    }
+
+
