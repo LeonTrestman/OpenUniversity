@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ExamAppController">
+   <children>
+      <TextArea fx:id="textBox" editable="false" prefHeight="200.0" prefWidth="500.0" text="Welcome to the Exam Application&#10;You’ll be given a questions followed by four possible answers.&#10;Only one of them is a valid answer other three are false&#10;Choose and submit the correct answer&#10;To begin press next&#10;Best of luck&#10;">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </TextArea>
+      <FlowPane fx:id="ansBtnsPane" alignment="BOTTOM_CENTER" columnHalignment="CENTER" prefHeight="300.0" prefWidth="500.0" rowValignment="BOTTOM">
+         <children>
+            <Button fx:id="ans1Btn" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="60.0" prefWidth="500.0" text="ans1">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="ans2Btn" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="60.0" prefWidth="500.0" text="ans2" />
+            <Button fx:id="ans3Btn" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="60.0" prefWidth="500.0" text="ans3" />
+            <Button fx:id="ans4Btn" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="60.0" prefWidth="500.0" text="ans4" />
+            <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#nextBtnAction" prefHeight="60.0" prefWidth="500.0" text="next" />
+         </children>
+      </FlowPane>
+   </children>
+</VBox>
