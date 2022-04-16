@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DrawRandomShapesController">
+   <top>
+      <Button mnemonicParsing="false" onAction="#drawTenRandomColoredShapesQuarterCanvasMaxSizedButton" prefHeight="18.0" prefWidth="327.0" text="Draw 10 random colored shapes quarter canvas max sized" BorderPane.alignment="TOP_LEFT" />
+   </top>
+   <center>
+      <Canvas fx:id="canvas" height="374.0" width="500.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
